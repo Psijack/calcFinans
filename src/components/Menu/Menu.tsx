@@ -9,9 +9,6 @@ function Menu() {
             <div>
                 <Link to={'TotalCapital'}>Total Capital</Link>
                 <Link to={'SpendingIncome'}>Spending/Income</Link>
-                <Link to={'Category'}>Category</Link>
-                <Link to={'Schedule'}>Schedule</Link>
-                <Link to={'Wallets'}>Wallets</Link>
             </div>
         </nav>
         <Outlet/>

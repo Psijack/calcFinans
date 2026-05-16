@@ -3,6 +3,7 @@ import './SpendingIncome.sass';
 import { useState } from 'react';
 
 interface Categories{
+    id:number
     name: string;
     amount: string;
 }
@@ -20,6 +21,15 @@ function SpendingIncome(){
         }]);
         setNewCategory('');
     }
+
+    const handleChangeAmount = (id:number, value:string)=>{
+        setCategories(prev => 
+            prev.map(item =>
+                 item.id === id ? { ...item, amount:value}: item
+                )
+            );
+        console.log(categories);
+        };
 
     
     return(
@@ -46,7 +56,7 @@ function SpendingIncome(){
                                         type="number"
                                         id='amount-i'
                                         value={item.amount}
-                                        // onChange={(e)=> handleAmountChange(item.name, e.target.value)}
+                                        onChange={(e)=> handleChangeAmount(item.id, e.target.value)}
                                         placeholder="0" />
                                     <button type="button">Save</button>
                                 </div>
