@@ -1,0 +1,12 @@
+{
+  "categories": [
+    {
+      "name": "asd",
+      "amount": 0,
+      "date": "2026-05-17T09:11:58.981Z",
+      "id": "3lHAgbnqPeI"
+    }
+  ],
+  "transactions": [],
+  "$schema": "./node_modules/json-server/schema.json"
+}

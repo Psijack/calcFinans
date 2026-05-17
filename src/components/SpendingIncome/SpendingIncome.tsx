@@ -1,6 +1,7 @@
 import './SpendingIncome.sass';
 
 import { useState } from 'react';
+import fetchCategory from '../fetch/fetch';
 
 interface Categories{
     id:number
@@ -20,6 +21,7 @@ function SpendingIncome(){
             amount: ''
         }]);
         setNewCategory('');
+        fetchCategory(newCategory);
     }
 
     const handleChangeAmount = (id:number, value:string)=>{
@@ -39,7 +41,7 @@ function SpendingIncome(){
                 <form onSubmit={handleCreateCategory}>
                     <label htmlFor="0" >Create new category</label>
                     <input type="text" id='0' value={newCategory} onChange={(e) => setNewCategory(e.target.value)}/>
-                    <button type="submit">Create</button>ФЕНЭ.
+                    <button type="submit">Create</button>
                 </form>
             </div>
             <div className='create__form'>
