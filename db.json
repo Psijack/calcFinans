@@ -1,18 +1,25 @@
 {
   "categoriesSpending": [
     {
-      "name": "asdasd",
+      "name": "asd",
       "amount": "",
-      "safeAmount": "0",
-      "data": "2026-05-30T20:44:18.059Z",
-      "id": "_r-TWzcXEPQ"
+      "safeAmount": "345",
+      "data": "2026-05-31T10:08:35.453Z",
+      "id": "cFcL7Jdt3x8"
+    },
+    {
+      "name": "123",
+      "amount": "",
+      "safeAmount": "123345",
+      "data": "2026-05-31T10:08:42.048Z",
+      "id": "5DX55e8bAEE"
     },
     {
       "name": "asdasd",
       "amount": "",
       "safeAmount": "0",
-      "data": "2026-05-30T20:44:18.068Z",
-      "id": "DTNO-ZR4tRE"
+      "data": "2026-05-31T10:15:48.075Z",
+      "id": "j3TgCSPDg7Y"
     }
   ],
   "categoriesIncome": [],

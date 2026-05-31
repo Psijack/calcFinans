@@ -5,7 +5,7 @@ import {fetchCategory, fetchChangeCategory} from '../fetch/fetch';
 
 interface Categories{
     id: number;
-    data:string
+    data:string;
     name: string;
     amount: string;
     safeAmount: string;
@@ -48,64 +48,60 @@ function SpendingIncome(){
         } 
         else{
             if (category === 'spending') {
-                const newitem = await fetchCategory(
+                const newitem:Categories = await fetchCategory(
                       newCategorySpending,
                       'categoriesSpending'
                 );
-                console.log(newitem);
                 setCategoriesSpending(prev => [...prev, newitem]);
                 setNewCategorySpending('');
-                fetchCategory(newCategorySpending,'categoriesSpending');
+               
             }else {
-                const newitem = await fetchCategory(
-                       newCategorySpending,
-                      'categoriesSpending'
+                const newitem: Categories = await fetchCategory(
+                       newCategoryIncome,
+                      'categoriesIncome'
                 )
                 setCategoriesIncome(prev => [...prev, newitem]);
                 setNewCategoryIncome('');
-                fetchCategory(newCategoryIncome,'categoriesIncome');
             }
         }
     }
-    const handleChangeAmount = (data:string, value:string, category: CategoryType)=>{
+    const handleChangeAmount = (id:number, value:string, category: CategoryType)=>{
        if (category === 'spending') {
          setCategoriesSpending(prev => 
             prev.map(item =>
-                 item.data === data ? { ...item, amount:value}: item
+                 item.id === id ? { ...item, amount:value}: item
                 )
             );
        }else{
         setCategoriesIncome(prev => 
             prev.map(item =>
-                 item.data === data ? { ...item,amount:value}: item
+                 item.id === id ? { ...item,amount:value}: item
                 )
             );
        }
         };
 
-    const handleSafeAmount = async (data:string, category: CategoryType)=>{
+    const handleSafeAmount = async (id:number, category: CategoryType)=>{
         const categories = category === 'spending' ? categoriesSpending : categoriesIncome;
-        const currentItem = categories.find(item => item.data === data);
+        const currentItem = categories.find(item => item.id === id);
         const endpoint = category === 'spending' ? 'categoriesSpending' : 'categoriesIncome';
-        console.log(typeof(data));
         if (!currentItem?.amount) return;
 
         const calcAmount = (parseFloat(currentItem.safeAmount || '0') + parseFloat(currentItem.amount || '0')).toString();
         try{
-            await fetchChangeCategory(endpoint, data, currentItem.amount)
+            await fetchChangeCategory(endpoint, id, calcAmount)
             if (category === 'spending') {
                 setCategoriesSpending(prev=>
                     prev.map(item=>
-                        item.data === data
+                        item.id === id
                         ? {...item, safeAmount:calcAmount, amount:''}
                         :item
                     )
                 )
-                console.log(categoriesSpending);
             }else{
                 setCategoriesIncome(prev=>
                     prev.map(item=>
-                        item.data === data
+                        item.id === id
                         ? {...item, safeAmount:calcAmount, amount:''}
                         :item
                     )
@@ -141,9 +137,9 @@ function SpendingIncome(){
                                         type="number"
                                         id={`amount-${i}`}
                                         value={item.amount ?? ''}
-                                        onChange={(e)=> handleChangeAmount(item.data, e.target.value,'spending')}
+                                        onChange={(e)=> handleChangeAmount(item.id, e.target.value,'spending')}
                                         placeholder="0" />
-                                    <button type="button" onClick={()=>{handleSafeAmount(item.data,'spending')}}>Save</button>
+                                    <button type="button" onClick={()=>{handleSafeAmount(item.id,'spending')}}>Save</button>
                                 </div>
                                 
                                 )
@@ -176,9 +172,9 @@ function SpendingIncome(){
                                         type="number"
                                         id={`amount-${i}`}
                                         value={item.amount}
-                                        onChange={(e)=> handleChangeAmount(item.data, e.target.value, 'income')}
+                                        onChange={(e)=> handleChangeAmount(item.id, e.target.value, 'income')}
                                         placeholder="0" />
-                                    <button type="button" onClick={()=>{handleSafeAmount(item.data,'income')}}>Save</button>
+                                    <button type="button" onClick={()=>{handleSafeAmount(item.id,'income')}}>Save</button>
                                 </div>
                                 
                                 )

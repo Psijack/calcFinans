@@ -13,21 +13,20 @@ const fetchCategory = async (newCategory:string, category:string, ) => {
         })
     });
     const result = await response.json();
-    console.log(result);
     return result;
 }
 
-const fetchChangeCategory = async (category:string, data:string,  newAmount:string)=>{
-   const response = await fetch(`http://localhost:3000/${category}/${data}`,{
+const fetchChangeCategory = async (category:string, id:number,  newAmount:string)=>{
+   const response = await fetch(`http://localhost:3000/${category}/${id}`,{
         method: 'PATCH',
         headers:{
             'Content-Type': 'application/json'
         },
         body:JSON.stringify({
-           amount: newAmount
+           safeAmount: newAmount,
         })
     });
-        const result = await response.json();
+       
     
 }
 export {fetchCategory, fetchChangeCategory};
