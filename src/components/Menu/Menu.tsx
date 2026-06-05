@@ -10,7 +10,6 @@ function Menu() {
                 <Link to={'TotalCapital'}>Total Capital</Link>
                 <Link to={'SpendingIncome'}>Spending/Income</Link>
                 <Link to={'Reports'}>Reports</Link>
-                <Link to={'Wallets'}>Wallets</Link>
             </div>
         </nav>
         <Outlet/>

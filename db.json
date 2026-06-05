@@ -17,11 +17,33 @@
     {
       "name": "asdasd",
       "amount": "",
-      "safeAmount": "0",
+      "safeAmount": "1",
       "data": "2026-05-31T10:15:48.075Z",
       "id": "j3TgCSPDg7Y"
     }
   ],
-  "categoriesIncome": [],
+  "categoriesIncome": [
+    {
+      "name": "asdasd",
+      "amount": "",
+      "safeAmount": "1323",
+      "data": "2026-05-31T12:21:00.889Z",
+      "id": "Qj20QiCoYjo"
+    },
+    {
+      "name": "asd",
+      "amount": "",
+      "safeAmount": "1111",
+      "data": "2026-05-31T12:21:05.763Z",
+      "id": "QwNIaXH7pvc"
+    },
+    {
+      "name": "фыв",
+      "amount": "",
+      "safeAmount": "123346",
+      "data": "2026-06-05T17:09:18.036Z",
+      "id": "YrtCWVrj5_o"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

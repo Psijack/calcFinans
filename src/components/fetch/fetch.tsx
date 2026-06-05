@@ -29,4 +29,15 @@ const fetchChangeCategory = async (category:string, id:number,  newAmount:string
        
     
 }
-export {fetchCategory, fetchChangeCategory};
+
+const getSafeAmountS = async()=>{
+    const response = await fetch(`http://localhost:3000/categoriesSpending`)
+    const data = response.json();
+    return data;
+}
+const getSafeAmountI = async()=>{
+    const response = await fetch(`http://localhost:3000/categoriesIncome`)
+    const data = response.json();
+    return data;
+}
+export {fetchCategory, fetchChangeCategory, getSafeAmountS, getSafeAmountI};

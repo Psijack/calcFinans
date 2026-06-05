@@ -17,7 +17,6 @@ function SpendingIncome(){
     const [newCategoryIncome, setNewCategoryIncome] = useState<string>('');
     const [categoriesSpending, setCategoriesSpending] = useState<Categories[]>([]);
     const [categoriesIncome, setCategoriesIncome] = useState<Categories[]>([]);
-    console.log(categoriesSpending);
     useEffect(()=>{
         fetch('http://localhost:3000/categoriesSpending')
         .then(response => response.json())
@@ -148,7 +147,7 @@ function SpendingIncome(){
                 }
             </div>
             </div>
-            <div className="incoming">
+            <div className="income">
                 <p>Income</p>
                 <div className="create__form">
                 <form onSubmit={(e)=>handleCreateCategory(e, 'income')}>

@@ -5,8 +5,6 @@ import Menu from "../Menu/Menu"
 import SpendingIncome from '../SpendingIncome/SpendingIncome';
 import TotalCapital from '../TotalCapital/TotalCapital';
 import Reports from '../Report/Report';
-import Wallets from '../Wallets/wallets';
-
 
 function App() {
   return (
@@ -17,9 +15,7 @@ function App() {
         <Route path="/" element={<Menu />}>
           <Route path="TotalCapital" element={<TotalCapital />} />
           <Route path="SpendingIncome" element={<SpendingIncome />} />
-          <Route path="Reports" element={<Reports />} />
-          <Route path="Wallets" element={<Wallets />} />
-          
+          <Route path="Reports" element={<Reports />} />     
         </Route>
       </Routes>
     </BrowserRouter>
