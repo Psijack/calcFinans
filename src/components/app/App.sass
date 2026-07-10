@@ -1,12 +1,40 @@
+@font-face 
+    font-family: 'Roboto' /* Придумайте любое название */
+    src: url('../../font-style/Roboto-Regular') format('truetype')
+    font-weight: 400
+    font-display: swap
+@font-face 
+    font-family: 'Roboto' /* Придумайте любое название */
+    src: url('../../font-style/Roboto-Thin') format('truetype')
+    font-weight: 100
+    font-display: swap
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button 
+  -webkit-appearance: none
+  margin: 0
+
+
 body
-    background-color: grey
-    margin: 100px 200px
+    background-color: #434343
+    // margin: 100px 200px
+    height: 98vh
+
+section
+    height: 100%
 
 .wrapper
-    background-color: #fff
+    background-color: #2a2a2a
     margin: 0
-    width: 100rem
-    height: 30rem
+    width: 60rem
+    // max-height: 100%
     border-radius: 20px
     display: flex
     flex-direction: column
+    border: 1px #7a7a7a solid
+
+p
+    color: #fffeff
+
+label
+    color: #fffeff

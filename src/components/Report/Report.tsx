@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { getSafeAmountI, getSafeAmountS } from "../fetch/fetch";
+import { useAuth } from "../Autorition/AutoContext/AutoContext";
 
 import './Report.sass'
 
@@ -10,16 +11,20 @@ interface Categories{
     name: string;
     amount: string;
     safeAmount: string;
+    userId: number | null;
 }
 
-const Reports = ()=>{
+const Reports = () =>{
     const [spending, setSpending] = useState<Categories[]>([]);
     const [income, setIncome] = useState<Categories[]>([]);
+
+    const {userId} = useAuth();
 
     useEffect(()=>{
             getSafeAmountS()
                 .then((items: Categories[])=>{
-                    const arr = [...items].sort((a, b) => {
+                    const filterUser = items.filter(item=> item.userId === userId)
+                    const arr = [...filterUser].sort((a, b) => {
                         const amountA = parseFloat(a.safeAmount) || 0;
                         const amountB = parseFloat(b.safeAmount) || 0;
                         return amountB - amountA;   // от большего к меньшему
@@ -29,7 +34,8 @@ const Reports = ()=>{
                 })
             getSafeAmountI()
                 .then((items: Categories[])=>{
-                    const arr = [...items].sort((a, b) => {
+                    const filterUser = items.filter(item=> item.userId === userId)
+                    const arr = [...filterUser].sort((a, b) => {
                         const amountA = parseFloat(a.safeAmount) || 0;
                         const amountB = parseFloat(b.safeAmount) || 0;
                         return amountB - amountA;   // от большего к меньшему

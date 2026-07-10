@@ -1,7 +1,8 @@
 import './SpendingIncome.sass';
 
 import { useState,useEffect } from 'react';
-import {fetchCategory, fetchChangeCategory} from '../fetch/fetch';
+import {fetchCategory, fetchChangeCategory, fetchDeleteCategory} from '../fetch/fetch';
+import { useAuth } from '../Autorition/AutoContext/AutoContext';
 
 interface Categories{
     id: number;
@@ -9,26 +10,47 @@ interface Categories{
     name: string;
     amount: string;
     safeAmount: string;
+    userId: number | null;
 }
 type CategoryType = 'spending' | 'income';
 
 function SpendingIncome(){
+
     const [newCategorySpending, setNewCategorySpending] = useState<string>('');
     const [newCategoryIncome, setNewCategoryIncome] = useState<string>('');
     const [categoriesSpending, setCategoriesSpending] = useState<Categories[]>([]);
     const [categoriesIncome, setCategoriesIncome] = useState<Categories[]>([]);
+
+    const [allCategoriesSpending, setAllCategoriesSpending] = useState<Categories[]>([]);
+    const [allCategoriesIncome, setAllCategoriesIncome] = useState<Categories[]>([]);
+
+    const {userId} = useAuth();
+
+    console.log(allCategoriesSpending);
     useEffect(()=>{
         fetch('http://localhost:3000/categoriesSpending')
         .then(response => response.json())
         .then((data:Categories[])=>{
-            setCategoriesSpending(data)
+            setAllCategoriesSpending(data);
+            const filterUser = data.filter(item=> item.userId === userId)
+            setCategoriesSpending(filterUser)
         })
         fetch('http://localhost:3000/categoriesIncome')
         .then(response => response.json())
         .then((data:Categories[])=>{
-            setCategoriesIncome(data)
+            setAllCategoriesIncome(data)
+            const filterUser = data.filter(item=> item.userId === userId)
+            setCategoriesIncome(filterUser)
         })
+
     },[])
+
+    const deleteCategory = (e: React.MouseEvent<HTMLButtonElement>,) =>{
+        const id = e.currentTarget.parentElement?.id;
+        fetchDeleteCategory('categoriesSpending', id);
+        setCategoriesSpending(prev => prev.filter(items=> String(items.id) !==id))
+        
+    }
     const handleCreateCategory = async(e: React.FormEvent, category:CategoryType)=>{
         e.preventDefault();
         const spend = categoriesSpending.some(item => item.name === newCategorySpending);
@@ -49,7 +71,8 @@ function SpendingIncome(){
             if (category === 'spending') {
                 const newitem:Categories = await fetchCategory(
                       newCategorySpending,
-                      'categoriesSpending'
+                      'categoriesSpending',
+                      userId
                 );
                 setCategoriesSpending(prev => [...prev, newitem]);
                 setNewCategorySpending('');
@@ -57,7 +80,8 @@ function SpendingIncome(){
             }else {
                 const newitem: Categories = await fetchCategory(
                        newCategoryIncome,
-                      'categoriesIncome'
+                      'categoriesIncome',
+                      userId
                 )
                 setCategoriesIncome(prev => [...prev, newitem]);
                 setNewCategoryIncome('');
@@ -116,29 +140,34 @@ function SpendingIncome(){
                 <p>Spending</p>
             <div className="create__form">
                 <form onSubmit={(e)=>handleCreateCategory(e, 'spending')}>
-                    <label htmlFor="0" >Create new category</label>
-                    <input type="text" id='0' value={newCategorySpending} onChange={(e) => setNewCategorySpending(e.target.value)}/>
-                    <button type="submit">Create</button>
+                    <input className='create__category' type="text" id='0' placeholder='Create new category' value={newCategorySpending} onChange={(e) => setNewCategorySpending(e.target.value)}/>
+                    <button className='create__but' type="submit">+</button>
                 </form>
             </div>
-            <div className='create__form'>
+            <div className='form__lists'>
                 {
                     categoriesSpending.length === 0 ? (
                     <p>Пока нет категорий. Создайте первую выше ↑</p>)
                         : (
                             categoriesSpending.map((item,i)=>(
-                                <div key={i}>
-                                    <label htmlFor={`amount-${i}`}>
-                                        {item.name}
-                                    </label>
-                                    <div>{item.safeAmount || '0'}</div>
-                                    <input 
+                                <div className='form__list' key={i}>
+                                    <div id={String(item.id)} className='show__form'>
+                                        <div className='show__wrapper'>
+                                            <label htmlFor={`amount-${i}`}>
+                                                {item.name}: 
+                                            </label>
+                                            <div> {item.safeAmount || '0'}</div>
+                                        </div>
+                                        <div className='delete' onClick={(e)=>deleteCategory(e)}>delete</div>
+                                    </div>
+                                    <input
+                                        className='create__category'
                                         type="number"
                                         id={`amount-${i}`}
                                         value={item.amount ?? ''}
                                         onChange={(e)=> handleChangeAmount(item.id, e.target.value,'spending')}
                                         placeholder="0" />
-                                    <button type="button" onClick={()=>{handleSafeAmount(item.id,'spending')}}>Save</button>
+                                    <button className='create__but' type="button" onClick={()=>{handleSafeAmount(item.id,'spending')}}>Save</button>
                                 </div>
                                 
                                 )
@@ -151,29 +180,31 @@ function SpendingIncome(){
                 <p>Income</p>
                 <div className="create__form">
                 <form onSubmit={(e)=>handleCreateCategory(e, 'income')}>
-                    <label htmlFor="0" >Create new category</label>
-                    <input type="text" id='0' value={newCategoryIncome} onChange={(e) => setNewCategoryIncome(e.target.value)}/>
-                    <button type="submit">Create</button>
+                    <input type="text" className='create__category' id='0' placeholder='Create new category' value={newCategoryIncome} onChange={(e) => setNewCategoryIncome(e.target.value)}/>
+                    <button className='create__but' type="submit">+</button>
                 </form>
             </div>
-            <div className='create__form'>
+                        <div className='form__lists'>
                 {
                     categoriesIncome.length === 0 ? (
                     <p>Пока нет категорий. Создайте первую выше ↑</p>)
                         : (
                             categoriesIncome.map((item,i)=>(
-                                <div key={i}>
-                                    <label htmlFor={`amount-${i}`}>
-                                        {item.name}
+                                <div className='form__list' key={i}>
+                                    <div className='show__form'>
+                                        <label htmlFor={`amount-${i}`}>
+                                        {item.name}: 
                                     </label>
-                                    <div>{item.safeAmount || '0'}</div>
-                                    <input 
+                                    <div> {item.safeAmount || '0'}</div>
+                                    </div>
+                                    <input
+                                        className='create__category'
                                         type="number"
                                         id={`amount-${i}`}
-                                        value={item.amount}
-                                        onChange={(e)=> handleChangeAmount(item.id, e.target.value, 'income')}
+                                        value={item.amount ?? ''}
+                                        onChange={(e)=> handleChangeAmount(item.id, e.target.value,'income')}
                                         placeholder="0" />
-                                    <button type="button" onClick={()=>{handleSafeAmount(item.id,'income')}}>Save</button>
+                                    <button className='create__but' type="button" onClick={()=>{handleSafeAmount(item.id,'income')}}>Save</button>
                                 </div>
                                 
                                 )

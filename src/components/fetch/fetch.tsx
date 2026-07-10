@@ -1,5 +1,5 @@
 
-const fetchCategory = async (newCategory:string, category:string, ) => {
+const fetchCategory = async (newCategory:string, category:string, userId:number|null) => {
     const response = await fetch(`http://localhost:3000/${category}`,{
         method: 'POST',
         headers:{
@@ -10,6 +10,7 @@ const fetchCategory = async (newCategory:string, category:string, ) => {
             amount: '',
             safeAmount:'0',
             data: new Date(),
+            userId: userId,
         })
     });
     const result = await response.json();
@@ -30,6 +31,17 @@ const fetchChangeCategory = async (category:string, id:number,  newAmount:string
     
 }
 
+const fetchDeleteCategory = async (category:string, id:number|string|undefined)=>{
+   const response = await fetch(`http://localhost:3000/${category}/${id}`,{
+        method: 'DELETE',
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    });
+       
+    
+}
+
 const getSafeAmountS = async()=>{
     const response = await fetch(`http://localhost:3000/categoriesSpending`)
     const data = response.json();
@@ -40,4 +52,10 @@ const getSafeAmountI = async()=>{
     const data = response.json();
     return data;
 }
-export {fetchCategory, fetchChangeCategory, getSafeAmountS, getSafeAmountI};
+
+const getUser = async()=>{
+    const response = await fetch('http://localhost:3000/users')
+    const data = response.json();
+    return data;
+}
+export {fetchCategory, fetchChangeCategory, getSafeAmountS, getSafeAmountI, getUser,fetchDeleteCategory};

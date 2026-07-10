@@ -1,48 +1,61 @@
 {
-  "categoriesSpending": [
+  "categoriesSpending": [],
+  "categoriesIncome": [],
+  "users": [
     {
+      "id": "FrzgU64SD_w",
+      "userId": "1",
+      "name": "art",
+      "email": "sdfsadf@gmail.com",
+      "password": "qwertyu"
+    },
+    {
+      "id": "7KjQooRoJuM",
       "name": "asd",
-      "amount": "",
-      "safeAmount": "345",
-      "data": "2026-05-31T10:08:35.453Z",
-      "id": "cFcL7Jdt3x8"
+      "email": "qweqweasd@GMAIL.COM",
+      "password": "+"
     },
     {
-      "name": "123",
-      "amount": "",
-      "safeAmount": "123345",
-      "data": "2026-05-31T10:08:42.048Z",
-      "id": "5DX55e8bAEE"
+      "id": "LF6i3zIkkrM",
+      "name": "1",
+      "email": "1@gmail.com",
+      "password": "123456",
+      "userId": null
     },
     {
-      "name": "asdasd",
-      "amount": "",
-      "safeAmount": "1",
-      "data": "2026-05-31T10:15:48.075Z",
-      "id": "j3TgCSPDg7Y"
-    }
-  ],
-  "categoriesIncome": [
-    {
-      "name": "asdasd",
-      "amount": "",
-      "safeAmount": "1323",
-      "data": "2026-05-31T12:21:00.889Z",
-      "id": "Qj20QiCoYjo"
+      "id": "C5IMygnwHX4",
+      "name": "1",
+      "email": "2@gmail.com",
+      "password": "123456",
+      "userId": null
     },
     {
-      "name": "asd",
-      "amount": "",
-      "safeAmount": "1111",
-      "data": "2026-05-31T12:21:05.763Z",
-      "id": "QwNIaXH7pvc"
+      "id": "-tgznzWysSQ",
+      "name": "2",
+      "email": "13@gmail.com",
+      "password": "12345677",
+      "userId": null
     },
     {
-      "name": "фыв",
-      "amount": "",
-      "safeAmount": "123346",
-      "data": "2026-06-05T17:09:18.036Z",
-      "id": "YrtCWVrj5_o"
+      "id": "ZTHz0cXeMwo",
+      "name": "1234",
+      "email": "11234@gmail.com",
+      "password": "qwerty1234",
+      "userId": null
+    },
+    {
+      "id": "tzCVUIZnp34",
+      "name": "1233",
+      "email": "111123@gmail.com",
+      "password": "qwerty1234",
+      "userId": 7
+    },
+    {
+      "id": "WwtQuD18eE4",
+      "name": "artы",
+      "email": "sdfsasdf@gmail.com",
+      "password": "qwertyuыs",
+      "userId": 8
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
