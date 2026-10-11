@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import { AuthProvider } from '../Autorition/AutoContext/AutoContext';
 import { ProtectedRoute } from '../Autorition/ProtectedRoute/ProtectedRoute';
@@ -5,7 +7,7 @@ import { ProtectedRoute } from '../Autorition/ProtectedRoute/ProtectedRoute';
 import Login from '../Autorition/Login/Login';
 import Register from '../Autorition/Registration/Registration';
 import ForgotPassword from '../Autorition/ForgetPassword/ForgetPassword';
-
+ 
 import './App.sass';
 import Menu from "../Menu/Menu"
 import SpendingIncome from '../SpendingIncome/SpendingIncome';
@@ -13,6 +15,7 @@ import TotalCapital from '../TotalCapital/TotalCapital';
 import Reports from '../Report/Report';
 
 function App() {
+    const [openMenu, setOpenMenu] = useState(false);
   return (
     <>
    <BrowserRouter>
@@ -25,10 +28,10 @@ function App() {
 
                     {/* Защищённая зона */}
                     <Route element={<ProtectedRoute />}>
-                        <Route path="/" element={<Menu />}>
-                            <Route index element={<Navigate to="/TotalCapital" replace />} />
-                            <Route path="TotalCapital" element={<TotalCapital />} />
-                            <Route  path="SpendingIncome" element={<SpendingIncome/>} />
+                        <Route path="/" element={<Menu openMenu={openMenu} setOpenMenu={setOpenMenu}/>}>
+                            <Route  index element={<Navigate to="/TotalCapital" replace />} />
+                            <Route path="TotalCapital" element={<TotalCapital openMenu={openMenu} setOpenMenu={setOpenMenu}/>} />
+                            <Route  path="SpendingIncome" element={<SpendingIncome openMenu={openMenu} setOpenMenu={setOpenMenu}/>} />
                             <Route path="Reports" element={<Reports />} />
                         </Route>
                     </Route>

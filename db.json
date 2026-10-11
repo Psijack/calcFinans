@@ -1,6 +1,24 @@
 {
-  "categoriesSpending": [],
-  "categoriesIncome": [],
+  "categoriesSpending": [
+    {
+      "name": "asdasd",
+      "amount": "",
+      "safeAmount": "463546",
+      "data": "2026-07-19T14:38:03.025Z",
+      "userId": "1",
+      "id": "fErhjXyuXG8"
+    }
+  ],
+  "categoriesIncome": [
+    {
+      "name": "asd",
+      "amount": "",
+      "safeAmount": "1",
+      "data": "2026-07-10T14:06:03.898Z",
+      "userId": "1",
+      "id": "BSXOsDumyCM"
+    }
+  ],
   "users": [
     {
       "id": "FrzgU64SD_w",

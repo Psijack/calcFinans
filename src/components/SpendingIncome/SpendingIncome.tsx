@@ -14,41 +14,37 @@ interface Categories{
 }
 type CategoryType = 'spending' | 'income';
 
-function SpendingIncome(){
+function SpendingIncome({openMenu, setOpenMenu}){
 
     const [newCategorySpending, setNewCategorySpending] = useState<string>('');
     const [newCategoryIncome, setNewCategoryIncome] = useState<string>('');
     const [categoriesSpending, setCategoriesSpending] = useState<Categories[]>([]);
     const [categoriesIncome, setCategoriesIncome] = useState<Categories[]>([]);
 
-    const [allCategoriesSpending, setAllCategoriesSpending] = useState<Categories[]>([]);
-    const [allCategoriesIncome, setAllCategoriesIncome] = useState<Categories[]>([]);
-
     const {userId} = useAuth();
 
-    console.log(allCategoriesSpending);
     useEffect(()=>{
         fetch('http://localhost:3000/categoriesSpending')
         .then(response => response.json())
         .then((data:Categories[])=>{
-            setAllCategoriesSpending(data);
             const filterUser = data.filter(item=> item.userId === userId)
             setCategoriesSpending(filterUser)
         })
         fetch('http://localhost:3000/categoriesIncome')
         .then(response => response.json())
         .then((data:Categories[])=>{
-            setAllCategoriesIncome(data)
             const filterUser = data.filter(item=> item.userId === userId)
             setCategoriesIncome(filterUser)
         })
 
     },[])
 
-    const deleteCategory = (e: React.MouseEvent<HTMLButtonElement>,) =>{
+    const deleteCategory = (e: React.MouseEvent<HTMLButtonElement>, type: CategoryType ) =>{
+        const state = type === 'spending' ? 'categoriesSpending' : 'categoriesIncome';
+        const setState = type === 'spending' ? setCategoriesSpending : setCategoriesIncome
         const id = e.currentTarget.parentElement?.id;
-        fetchDeleteCategory('categoriesSpending', id);
-        setCategoriesSpending(prev => prev.filter(items=> String(items.id) !==id))
+        fetchDeleteCategory(state, id);
+        setState(prev => prev.filter(items=> String(items.id) !==id))
         
     }
     const handleCreateCategory = async(e: React.FormEvent, category:CategoryType)=>{
@@ -134,40 +130,48 @@ function SpendingIncome(){
             console.error('Ошибка сохранения')
         }
     }
-    return(
-        <div className="wrapper">
-            <div className="spending">
-                <p>Spending</p>
+
+        const useButton = ()=>{
+        setOpenMenu(prev => !prev)
+    }
+
+    const createSpendingIncome = (type: CategoryType) =>{
+        const state = type === 'spending' ? categoriesSpending: categoriesIncome;
+        const setNewCategory = type === 'spending' ? setNewCategorySpending : setNewCategoryIncome;
+        const stateNewCategory = type === 'spending' ? newCategorySpending : newCategoryIncome;
+
+        return(<div className={type}>
+                <p>{type == 'spending'? 'Spending' : 'Income'}</p>
             <div className="create__form">
-                <form onSubmit={(e)=>handleCreateCategory(e, 'spending')}>
-                    <input className='create__category' type="text" id='0' placeholder='Create new category' value={newCategorySpending} onChange={(e) => setNewCategorySpending(e.target.value)}/>
+                <form onSubmit={(e)=>handleCreateCategory(e, type)}>
+                    <input className='create__category' type="text" id='0' placeholder='Create new category' value={stateNewCategory} onChange={(e) => setNewCategory(e.target.value)}/>
                     <button className='create__but' type="submit">+</button>
                 </form>
             </div>
             <div className='form__lists'>
                 {
-                    categoriesSpending.length === 0 ? (
+                    state.length === 0 ? (
                     <p>Пока нет категорий. Создайте первую выше ↑</p>)
                         : (
-                            categoriesSpending.map((item,i)=>(
+                            state.map((item,i)=>(
                                 <div className='form__list' key={i}>
-                                    <div id={String(item.id)} className='show__form'>
+                                    <div id={item.id} className='show__form'>
                                         <div className='show__wrapper'>
                                             <label htmlFor={`amount-${i}`}>
                                                 {item.name}: 
                                             </label>
                                             <div> {item.safeAmount || '0'}</div>
                                         </div>
-                                        <div className='delete' onClick={(e)=>deleteCategory(e)}>delete</div>
+                                        <div className='delete' onClick={(e)=>deleteCategory(e, type)}>delete</div>
                                     </div>
                                     <input
                                         className='create__category'
                                         type="number"
                                         id={`amount-${i}`}
                                         value={item.amount ?? ''}
-                                        onChange={(e)=> handleChangeAmount(item.id, e.target.value,'spending')}
+                                        onChange={(e)=> handleChangeAmount(item.id, e.target.value,type)}
                                         placeholder="0" />
-                                    <button className='create__but' type="button" onClick={()=>{handleSafeAmount(item.id,'spending')}}>Save</button>
+                                    <button className='create__but' type="button" onClick={()=>{handleSafeAmount(item.id,type)}}>Save</button>
                                 </div>
                                 
                                 )
@@ -175,47 +179,14 @@ function SpendingIncome(){
                         ) 
                 }
             </div>
-            </div>
-            <div className="income">
-                <p>Income</p>
-                <div className="create__form">
-                <form onSubmit={(e)=>handleCreateCategory(e, 'income')}>
-                    <input type="text" className='create__category' id='0' placeholder='Create new category' value={newCategoryIncome} onChange={(e) => setNewCategoryIncome(e.target.value)}/>
-                    <button className='create__but' type="submit">+</button>
-                </form>
-            </div>
-                        <div className='form__lists'>
-                {
-                    categoriesIncome.length === 0 ? (
-                    <p>Пока нет категорий. Создайте первую выше ↑</p>)
-                        : (
-                            categoriesIncome.map((item,i)=>(
-                                <div className='form__list' key={i}>
-                                    <div className='show__form'>
-                                        <label htmlFor={`amount-${i}`}>
-                                        {item.name}: 
-                                    </label>
-                                    <div> {item.safeAmount || '0'}</div>
-                                    </div>
-                                    <input
-                                        className='create__category'
-                                        type="number"
-                                        id={`amount-${i}`}
-                                        value={item.amount ?? ''}
-                                        onChange={(e)=> handleChangeAmount(item.id, e.target.value,'income')}
-                                        placeholder="0" />
-                                    <button className='create__but' type="button" onClick={()=>{handleSafeAmount(item.id,'income')}}>Save</button>
-                                </div>
-                                
-                                )
-                            )
-                        ) 
-                }
-            </div>
-            </div>
+            </div>)
+    }
+    return(
+        <div className="wrapper wrapper__Spending_Income">
+            <div className="button__spending"  style={openMenu ? {display:'none'}: {display: 'flex'}} onClick={useButton}>close</div>
+            {createSpendingIncome('spending')}
+            {createSpendingIncome('income')}
         </div>
-
-
     )
 }
 

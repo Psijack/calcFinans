@@ -14,6 +14,8 @@ interface Categories{
     userId: number | null;
 }
 
+type Category = 'spending' | 'income'
+
 const Reports = () =>{
     const [spending, setSpending] = useState<Categories[]>([]);
     const [income, setIncome] = useState<Categories[]>([]);
@@ -42,39 +44,31 @@ const Reports = () =>{
                     });
                     setIncome(arr)
                 });
-        },[])
+    },[])
 
-// spending.map((item)=> console.log(item.safeAmount));
+    const createReport = ( type: Category) =>{
+
+        const state = type === 'spending' ? spending : income;
+
+        return(<div className={type}>
+                <p>Category: {type}</p>
+                {
+                    state.length === 0 ?<p>need create category to look for filter</p>:
+                    (state.map((item)=>
+                        (
+                            <ul key={item.id}>
+                                <li>name: {item.name}</li>
+                                <li>amount: {item.safeAmount}</li>
+                            </ul>
+                        )
+                    ))
+                }
+            </div>)
+    }
     return(
         <div className="wrapper">
-            <div className="spending">
-                <p>Category: Spending</p>
-                {
-                    spending.length === 0 ?<p>need create category to look for filter</p>:
-                    (spending.map((item)=>
-                        (
-                            <ul key={item.id}>
-                                <li>name: {item.name}</li>
-                                <li>amount: {item.safeAmount}</li>
-                            </ul>
-                        )
-                    ))
-                }
-            </div>
-            <div className="income">
-                <p>Category: Income</p>
-                {
-                    income.length === 0 ?<p>need create category to look for filter</p>:
-                    (income.map((item)=>
-                        (
-                            <ul key={item.id}>
-                                <li>name: {item.name}</li>
-                                <li>amount: {item.safeAmount}</li>
-                            </ul>
-                        )
-                    ))
-                }
-            </div>
+            {createReport('spending')}
+            {createReport('income')}
         </div>
 
     )
