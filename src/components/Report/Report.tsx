@@ -16,9 +16,13 @@ interface Categories{
 
 type Category = 'spending' | 'income'
 
-const Reports = () =>{
+const Reports = ({openMenu, setOpenMenu}) =>{
     const [spending, setSpending] = useState<Categories[]>([]);
     const [income, setIncome] = useState<Categories[]>([]);
+
+    const useButton = ()=>{
+        setOpenMenu(prev => !prev)
+    }
 
     const {userId} = useAuth();
 
@@ -66,7 +70,12 @@ const Reports = () =>{
             </div>)
     }
     return(
-        <div className="wrapper">
+        <div className="wrapper__report wrapper">
+           <div className="button" style={openMenu ? {display:'none'}: {display: 'flex'}} onClick={useButton}>
+                <div className="line"></div>
+                <div className="line"></div>
+                <div className="line"></div>
+            </div>
             {createReport('spending')}
             {createReport('income')}
         </div>

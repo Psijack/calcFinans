@@ -1,19 +1,112 @@
-ul
-    padding-left: 0
-    li
-        color: #fffeff
-        font-family: 'Roboto'
-        font-weight: 100
-        list-style-type: none
-        font-size: 1.25rem
-.spending
-    width: 15rem
-    p
-        font-size: 1.25rem
-        text-align: center
+.wrapper__report
+    display: flex
+    flex-direction: row
+    justify-content: space-around
+    align-items: flex-start
+    gap: 2rem
+    width: 100%
+    box-sizing: border-box
+    padding: 1.5rem
 
+.spending,
 .income
-    width: 15rem
-    p
-        font-size: 1.25rem
+    height: 90vh
+    width: 44%
+    max-width: 28rem
+    background-color: #333333
+    border: 1px #7a7a7a solid
+    border-radius: 0.8rem
+    padding: 1.25rem 1rem
+    box-sizing: border-box
+
+    > p
+        font-family: 'Roboto'
+        font-weight: 400
+        font-size: 1.35rem
+        color: #fffeff
         text-align: center
+        margin: 0 0 1.25rem 0
+        text-transform: capitalize
+
+    ul
+        padding-left: 0
+        margin: 0 0 1rem 0
+        list-style: none
+        background-color: #2a2a2a
+        border: 1px #545454 solid
+        border-radius: 8px
+        padding: 0.75rem 1rem
+
+        li
+            color: #fffeff
+            font-family: 'Roboto'
+            font-weight: 100
+            font-size: 1.15rem
+            list-style-type: none
+            margin-bottom: 0.35rem
+
+            &:last-child
+                margin-bottom: 0
+
+// ========== МЕДИА ПРАВИЛА ==========
+
+// Планшеты
+@media (max-width: 1024px)
+    .wrapper
+        width: 100% !important
+        max-width: 100% !important
+        margin: 0 !important
+        border-radius: 0
+        border-left: none
+        border-right: none
+        min-height: 100vh
+        align-items: stretch
+        gap: 1.5rem
+        padding: 1.5rem 1rem
+        box-sizing: border-box
+
+    .spending,
+    .income
+        width: 100%
+        max-width: 100%
+
+// Мобильные
+@media (max-width: 768px)
+    .wrapper
+        padding: 1rem
+        gap: 1.25rem
+
+    .spending,
+    .income
+        padding: 1rem 0.85rem
+
+        > p
+            font-size: 1.25rem
+            margin-bottom: 1rem
+
+        ul
+            padding: 0.65rem 0.85rem
+
+            li
+                font-size: 1.05rem
+
+// Маленькие телефоны
+@media (max-width: 425px)
+    .wrapper
+        padding: 0.75rem
+        gap: 1rem
+
+    .spending,
+    .income
+        border-radius: 0.6rem
+        padding: 0.85rem 0.7rem
+
+        > p
+            font-size: 1.15rem
+
+        ul
+            border-radius: 6px
+            padding: 0.55rem 0.7rem
+
+            li
+                font-size: 1rem

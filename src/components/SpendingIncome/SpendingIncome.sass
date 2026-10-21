@@ -75,4 +75,30 @@
                 width: auto
         
 
-        
+@media (max-width: 1024px)
+    .wrapper__Spending_Income
+        width: 100%
+        gap: 1.5rem
+        padding: 1rem
+        box-sizing: border-box
+
+        .spending,
+        .income
+            width: 100%
+            max-width: 100%
+            box-sizing: border-box
+
+@media (max-width: 768px)
+    .wrapper__Spending_Income
+        display: flex
+        flex-direction: column
+        .create__form form
+            flex-wrap: wrap
+            gap: 0.5rem
+            width: 100%
+
+        .create__category
+            flex: 1
+@media (max-width: 425px)
+    .wrapper__Spending_Income
+        flex-direction: column

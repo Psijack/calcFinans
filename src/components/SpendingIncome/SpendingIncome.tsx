@@ -183,7 +183,11 @@ function SpendingIncome({openMenu, setOpenMenu}){
     }
     return(
         <div className="wrapper wrapper__Spending_Income">
-            <div className="button__spending"  style={openMenu ? {display:'none'}: {display: 'flex'}} onClick={useButton}>close</div>
+            <div className="button" style={openMenu ? {display:'none'}: {display: 'flex'}} onClick={useButton}>
+                <div className="line"></div>
+                <div className="line"></div>
+                <div className="line"></div>
+            </div>
             {createSpendingIncome('spending')}
             {createSpendingIncome('income')}
         </div>

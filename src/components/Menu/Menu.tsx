@@ -3,7 +3,7 @@ import { Outlet, Link } from 'react-router-dom';
 import './Menu.sass';
 import './MenuMedia.sass';
 
-import { Dispatch, SetStateAction } from 'react';
+import {useState, useEffect } from 'react';
 
 interface ChildProps {
   openMenu: boolean;
@@ -11,11 +11,23 @@ interface ChildProps {
 }
 
 function Menu({openMenu, setOpenMenu}) {
-
+  const [isMobile, setIsMobile] = useState(false);
 
     const useButton = ()=>{
         setOpenMenu(prev => !prev)
     }
+
+    const closeMenu = (e) =>{
+      const mediaQuery = window.matchMedia('(max-width: 1024px)');
+      const handleChange = (e) => setIsMobile(e.matches);
+      setIsMobile(mediaQuery.matches);
+      if(isMobile){  
+        setOpenMenu(prev => !prev)
+        console.log(isMobile);
+      }
+      
+    }
+
   
   return (
     <>
@@ -23,9 +35,9 @@ function Menu({openMenu, setOpenMenu}) {
         <nav>
             <div className='menu' style={openMenu ? {display: 'flex'} : {display:'none'}}>
                 <div className="menu__button" onClick={useButton}>close</div>
-                <Link to={'TotalCapital'}>Total Capital</Link>
-                <Link to={'SpendingIncome'}>Spending/Income</Link>
-                <Link to={'Reports'}>Reports</Link>
+                <Link to={'TotalCapital'} onClick={(e)=>{closeMenu(e)}}>Total Capital</Link>
+                <Link to={'SpendingIncome'} onClick={(e)=>{closeMenu(e)}}>Spending/Income</Link>
+                <Link to={'Reports'} onClick={(e)=>{closeMenu(e)}}>Reports</Link>
             </div>
         </nav>
         <Outlet/>

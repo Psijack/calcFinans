@@ -1,13 +1,55 @@
 @media (max-width: 1024px)
+    section
+        width: 100%
+        justify-content: flex-start
+        align-items: stretch
+
     .menu
-        display: flex
-        width: 15rem
+        position: fixed
+        top: 0
+        left: 0
+        z-index: 100
+        height: 100vh
+        width: 100%
+        max-width: 100%
+        margin-right: 0
+        border-radius: 0
+        justify-content: flex-start
+        padding-top: 4rem
+        box-sizing: border-box
+        a
+            margin-bottom: 1.5rem
+    .menu__button
+        display: block
+        position: absolute
+        top: 1rem
+        right: 1.5rem
+        color: #fffeff
+        font-family: 'Roboto'
+        font-size: 1.2rem
+        cursor: pointer
+
+@media (max-width: 768px)
+    section
+        position: relative
+        width: 100%
+
+    .menu
+        position: fixed
+        top: 0
+        left: 0
+        width: 100%
+        height: 100vh
+        z-index: 100
+        border-radius: 0
+        margin: 0
+        a
+            font-size: 1.5rem
+            margin-bottom: 2rem
+
 
 @media (max-width: 425px)
-    .menu
-        height: 100%
-        width: 100%
-        position: absolute
-        right: 0
-        left: 0
 
+    .menu
+        a
+            font-size: 1.35rem

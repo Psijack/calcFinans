@@ -1,7 +1,9 @@
 import { useState ,useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from '../../fetch/fetch';
+
 import './ForgotPassword.sass'
+import '../authMedia.sass'
 
 interface User{
     userId: number;

@@ -1,14 +1,111 @@
-
+// Планшеты
 @media (max-width: 1024px)
+    body
+        margin: 0
+        height: auto
+        min-height: 100vh
+
+    section
+        width: 100%
+        max-width: 100%
+        height: auto
+        min-height: 100vh
+        display: flex
+        flex-direction: column
+        justify-content: flex-start   // было center — из‑за этого сдвиг
+        align-items: stretch
+        margin: 0
+        padding: 0
+        box-sizing: border-box
+
     .wrapper
-        width: 30rem
+        width: 100% !important
+        max-width: 100% !important
+        margin: 0 !important
+        border-radius: 0
+        border-left: none
+        border-right: none
+        min-height: 100vh
+        box-sizing: border-box
+        flex: 1
+
+    .wrapper__total
+        height: auto
+        min-height: 100vh
+        padding: 1.5rem 1rem
+        box-sizing: border-box
+
     .total_capital
         flex-direction: column
+        gap: 1.2rem
+        margin-bottom: 2rem
+        width: 100%
+
     .title
         margin-bottom: 2rem
+        font-size: 1.4rem
 
+    .capital_card
+        width: 100%
+        max-width: 100%
+        box-sizing: border-box
+
+    .button
+        display: flex
+        flex-direction: column
+        top: 15px
+        left: 15px
+
+// Мобильные
+@media (max-width: 768px)
+    .wrapper
+        width: 100%
+        border-radius: 0
+
+    .wrapper__Spending_Income
+        flex-direction: row
+        gap: 1.5rem
+        padding: 1rem
+        width: 100%
+        box-sizing: border-box
+
+        .spending,
+        .income
+            width: 100%
+            max-width: 100%
+            box-sizing: border-box
+
+    .capital_card
+        width: 100%
+        height: 5.5rem
+
+    .title
+        font-size: 1.25rem
+        margin-bottom: 1.5rem
+
+// Маленькие телефоны
 @media (max-width: 425px)
     .wrapper
-        width: 22rem
+        width: 100%
+        padding: 0.75rem
+        box-sizing: border-box
+
+    .wrapper__Spending_Income
+        flex-direction: column
+
     .button
-        display: block
+        display: flex
+        top: 12px
+        left: 12px
+
+        .line
+            width: 1.8rem
+
+    .capital_card
+        height: 5rem
+
+        p
+            font-size: 1.1rem
+
+    .title
+        margin-top: 2.5rem

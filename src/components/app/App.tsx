@@ -15,7 +15,7 @@ import TotalCapital from '../TotalCapital/TotalCapital';
 import Reports from '../Report/Report';
 
 function App() {
-    const [openMenu, setOpenMenu] = useState(false);
+    const [openMenu, setOpenMenu] = useState(true);
   return (
     <>
    <BrowserRouter>
@@ -32,7 +32,7 @@ function App() {
                             <Route  index element={<Navigate to="/TotalCapital" replace />} />
                             <Route path="TotalCapital" element={<TotalCapital openMenu={openMenu} setOpenMenu={setOpenMenu}/>} />
                             <Route  path="SpendingIncome" element={<SpendingIncome openMenu={openMenu} setOpenMenu={setOpenMenu}/>} />
-                            <Route path="Reports" element={<Reports />} />
+                            <Route path="Reports" element={<Reports openMenu={openMenu} setOpenMenu={setOpenMenu}/>} />
                         </Route>
                     </Route>
 

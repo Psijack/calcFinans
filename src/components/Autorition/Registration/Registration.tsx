@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { getUser } from '../../fetch/fetch';
 
 import './Registration.sass'
-
+import '../authMedia.sass'
 interface User{
     userId: number;
     email:string;

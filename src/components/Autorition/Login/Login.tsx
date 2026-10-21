@@ -3,6 +3,8 @@ import { useAuth } from '../AutoContext/AutoContext';  // ← Поправь п�
 import { useNavigate, Link } from 'react-router-dom';
 
 import './Login.sass'
+import '../authMedia.sass'
+
 const Login = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
